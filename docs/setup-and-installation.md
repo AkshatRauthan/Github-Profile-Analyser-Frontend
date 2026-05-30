@@ -55,6 +55,20 @@ npm run preview   # optional: preview dist locally
 
 Output is written to `dist/`. Serve as static files behind any CDN or static host; configure your host to fallback to `index.html` for client-side routing.
 
+### Vercel
+
+This repo includes `vercel.json` so routes like `/auth/callback` (Google OAuth) rewrite to `index.html` instead of returning 404.
+
+In the Vercel project:
+
+1. **Root directory:** `frontend` (if deploying from monorepo)
+2. **Environment variable:** `VITE_API_URL` = your backend URL (HF Space or other)
+3. **Backend `FRONTEND_URL`:** set to your Vercel URL, e.g. `https://github-profile-analyser-eight.vercel.app`
+4. **Backend `CORS_ORIGINS`:** include the Vercel URL
+5. **Google OAuth console:** authorized redirect URI = backend callback (`https://your-api.../api/v1/auth/google/callback`)
+
+Redeploy after adding `vercel.json` if OAuth callback was 404 before.
+
 ## Google OAuth (optional)
 
 Requires backend Google credentials. Flow:
@@ -73,7 +87,8 @@ Backend must set `GOOGLE_CALLBACK_URL` and `FRONTEND_URL` correctly.
 | API calls fail / CORS errors | Check `VITE_API_URL` and backend `CORS_ORIGINS` |
 | Redirected to login immediately | Token expired or invalid — log in again |
 | Google sign-in fails | Verify backend `GOOGLE_CLIENT_*` and callback URL |
-| Blank page after deploy | Configure SPA fallback to `index.html` |
+| Blank page after deploy | Configure SPA fallback to `index.html` (included: `vercel.json` on Vercel) |
+| OAuth callback 404 on Vercel | Redeploy with `vercel.json`; set backend `FRONTEND_URL` to Vercel domain |
 | Heatmap/composition empty | Backend may be down or GitHub rate limited — check network tab |
 
 ## Related
