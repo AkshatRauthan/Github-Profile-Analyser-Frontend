@@ -18,7 +18,7 @@ export function ActivityPage() {
   return (
     <div className="mx-auto max-w-3xl space-y-8">
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-3xl font-bold text-gradient">Activity log</h1>
+        <h1 className="text-2xl font-bold text-gradient sm:text-3xl">Activity log</h1>
         <p className="mt-2 text-cursor-muted">History of all profile analyze requests</p>
       </motion.div>
 

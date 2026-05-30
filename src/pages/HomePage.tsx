@@ -176,10 +176,12 @@ export function HomePage() {
     <div className="relative min-h-screen overflow-x-hidden">
       {/* Nav */}
       <header className="sticky top-0 z-50 border-b border-cursor-border/80 bg-cursor-bg/80 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <Link to="/" className="flex items-center gap-2.5">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-6">
+          <Link to="/" className="flex min-w-0 items-center gap-2.5">
             <AppLogo size="md" />
-            <span className="text-sm font-semibold text-cursor-text">GitHub Profile Analyser</span>
+            <span className="truncate text-sm font-semibold text-cursor-text sm:text-base">
+              GitHub Profile Analyser
+            </span>
           </Link>
 
           <nav className="hidden items-center gap-8 text-sm text-cursor-muted md:flex">
@@ -191,7 +193,7 @@ export function HomePage() {
             </a>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <ThemeToggle />
             <AuthNavActions />
           </div>

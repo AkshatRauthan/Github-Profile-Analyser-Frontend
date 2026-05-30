@@ -34,7 +34,7 @@ export function AnalyzePage() {
   return (
     <div className="mx-auto max-w-2xl space-y-8">
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-3xl font-bold text-gradient">Analyze profile</h1>
+        <h1 className="text-2xl font-bold text-gradient sm:text-3xl">Analyze profile</h1>
         <p className="mt-2 text-cursor-muted">
           Enter a GitHub username to fetch and store profile insights
         </p>

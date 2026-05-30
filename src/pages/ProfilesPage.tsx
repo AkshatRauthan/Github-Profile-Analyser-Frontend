@@ -24,7 +24,7 @@ export function ProfilesPage() {
   return (
     <div className="mx-auto max-w-6xl space-y-8">
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-3xl font-bold text-gradient">Your profiles</h1>
+        <h1 className="text-2xl font-bold text-gradient sm:text-3xl">Your profiles</h1>
         <p className="mt-2 text-cursor-muted">All GitHub profiles you have analyzed</p>
       </motion.div>
 

@@ -32,7 +32,7 @@ export function DashboardPage() {
   return (
     <div className="mx-auto max-w-6xl space-y-8">
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-3xl font-bold tracking-tight text-gradient">Dashboard</h1>
+        <h1 className="text-2xl font-bold tracking-tight text-gradient sm:text-3xl">Dashboard</h1>
         <p className="mt-2 text-sm text-cursor-muted">
           Overview of your GitHub screening workspace
         </p>

@@ -76,7 +76,7 @@ export function ComparePage() {
             <GitCompare className="h-5 w-5 text-cursor-accent-hover" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-gradient">Compare profiles</h1>
+            <h1 className="text-2xl font-bold text-gradient sm:text-3xl">Compare profiles</h1>
             <p className="mt-1 text-cursor-muted">
               Select 2–{MAX_COMPARE} analyzed profiles to compare side by side
             </p>
@@ -148,7 +148,7 @@ export function ComparePage() {
             })}
           </div>
         )}
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3">
           <Button
             disabled={selected.length < 2}
             loading={loadingRankings}
@@ -173,7 +173,14 @@ export function ComparePage() {
             exit={{ opacity: 0 }}
             className="space-y-6"
           >
-            <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${selectedProfiles.length}, 1fr)` }}>
+            <div className="overflow-x-auto pb-1">
+              <div
+                className="grid gap-4"
+                style={{
+                  gridTemplateColumns: `repeat(${selectedProfiles.length}, minmax(140px, 1fr))`,
+                  minWidth: `${selectedProfiles.length * 140}px`,
+                }}
+              >
               {selectedProfiles.map((profile, i) => (
                 <Card key={profile.id} delay={i * 0.05} className="text-center">
                   <img
@@ -197,6 +204,7 @@ export function ComparePage() {
                   )}
                 </Card>
               ))}
+              </div>
             </div>
 
             <Card className="space-y-6">

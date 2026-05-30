@@ -129,15 +129,15 @@ export function ProfileDetailPage() {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col gap-6 lg:flex-row lg:items-start"
+        className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between"
       >
         <img
           src={profile.avatarUrl || `https://github.com/${profile.githubUsername}.png`}
           alt=""
-          className="h-24 w-24 rounded-2xl border border-cursor-border"
+          className="h-20 w-20 shrink-0 rounded-2xl border border-cursor-border sm:h-24 sm:w-24"
         />
-        <div className="flex-1">
-          <h1 className="text-2xl font-bold text-cursor-text">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-xl font-bold text-cursor-text sm:text-2xl">
             {profile.name || profile.githubUsername}
           </h1>
           <a
@@ -172,7 +172,7 @@ export function ProfileDetailPage() {
             </span>
           </div>
         </div>
-        <Button onClick={handleRank} loading={ranking} size="lg">
+        <Button onClick={handleRank} loading={ranking} size="lg" className="w-full shrink-0 sm:w-auto lg:w-full">
           <Trophy className="h-4 w-4" />
           {rankings.length ? 'Re-rank' : 'Rank profile'}
         </Button>
@@ -191,12 +191,12 @@ export function ProfileDetailPage() {
       )}
 
       <Card className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
             <BarChart3 className="h-5 w-5 text-emerald-400" />
             <h2 className="font-semibold text-cursor-text">Contributions</h2>
           </div>
-          <div className="flex gap-1 rounded-lg border border-cursor-border p-0.5">
+          <div className="flex w-fit gap-1 rounded-lg border border-cursor-border p-0.5">
             {(['currWeek', 'currMonth', 'currYear'] as HeatmapPeriod[]).map((p) => (
               <button
                 key={p}
