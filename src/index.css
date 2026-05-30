@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
+
+/* Dark theme (Cursor-style) — default */
+:root.dark {
+  --gpa-bg: #0a0a0a;
+  --gpa-surface: #121212;
+  --gpa-elevated: #1a1a1a;
+  --gpa-hover: #252525;
+  --gpa-border: #2a2a2a;
+  --gpa-border-subtle: #1f1f1f;
+  --gpa-text: #e4e4e7;
+  --gpa-muted: #71717a;
+  --gpa-accent: #8b5cf6;
+  --gpa-accent-hover: #a78bfa;
+  --gpa-glow-1: rgba(139, 92, 246, 0.12);
+  --gpa-glow-2: rgba(139, 92, 246, 0.05);
+  --gpa-gradient-from: #ffffff;
+  --gpa-gradient-via: #e4e4e7;
+  --gpa-glass: rgba(18, 18, 18, 0.8);
+  --gpa-shadow-glow: rgba(139, 92, 246, 0.35);
+}
+
+/* Light theme */
+:root.light {
+  --gpa-bg: #f8f8fa;
+  --gpa-surface: #ffffff;
+  --gpa-elevated: #f4f4f5;
+  --gpa-hover: #e4e4e7;
+  --gpa-border: #e4e4e7;
+  --gpa-border-subtle: #f4f4f5;
+  --gpa-text: #18181b;
+  --gpa-muted: #71717a;
+  --gpa-accent: #7c3aed;
+  --gpa-accent-hover: #6d28d9;
+  --gpa-glow-1: rgba(124, 58, 237, 0.08);
+  --gpa-glow-2: rgba(124, 58, 237, 0.04);
+  --gpa-gradient-from: #18181b;
+  --gpa-gradient-via: #3f3f46;
+  --gpa-glass: rgba(255, 255, 255, 0.85);
+  --gpa-shadow-glow: rgba(124, 58, 237, 0.2);
+}
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-cursor-bg: var(--gpa-bg);
+  --color-cursor-surface: var(--gpa-surface);
+  --color-cursor-elevated: var(--gpa-elevated);
+  --color-cursor-hover: var(--gpa-hover);
+  --color-cursor-border: var(--gpa-border);
+  --color-cursor-border-subtle: var(--gpa-border-subtle);
+  --color-cursor-text: var(--gpa-text);
+  --color-cursor-muted: var(--gpa-muted);
+  --color-cursor-accent: var(--gpa-accent);
+  --color-cursor-accent-hover: var(--gpa-accent-hover);
+  --color-cursor-accent-dim: #6d28d9;
+  --color-cursor-success: #22c55e;
+  --color-cursor-warning: #eab308;
+  --color-cursor-danger: #ef4444;
+}
+
+@layer base {
+  * {
+    @apply border-cursor-border-subtle;
+  }
+
+  html {
+    @apply antialiased scroll-smooth;
+  }
+
+  body {
+    @apply bg-cursor-bg text-cursor-text font-sans min-h-screen transition-colors duration-300;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, var(--gpa-glow-1), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 100%, var(--gpa-glow-2), transparent);
+  }
+
+  ::selection {
+    @apply bg-cursor-accent/30;
+    color: var(--gpa-text);
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-cursor-hover rounded-full;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: var(--gpa-glass);
+    @apply backdrop-blur-xl border border-cursor-border;
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 40px -10px var(--gpa-shadow-glow);
+  }
+
+  .text-gradient {
+    background: linear-gradient(to right, var(--gpa-gradient-from), var(--gpa-gradient-via), var(--gpa-muted));
+    @apply bg-clip-text text-transparent;
+  }
+
+  .accent-gradient {
+    @apply bg-gradient-to-r from-cursor-accent to-violet-400;
+  }
+}
