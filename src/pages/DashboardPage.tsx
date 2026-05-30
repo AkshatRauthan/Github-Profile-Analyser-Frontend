@@ -33,7 +33,7 @@ export function DashboardPage() {
     <div className="mx-auto max-w-6xl space-y-8">
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-bold tracking-tight text-gradient">Dashboard</h1>
-        <p className="mt-2 text-cursor-muted">
+        <p className="mt-2 text-sm text-cursor-muted">
           Overview of your GitHub screening workspace
         </p>
       </motion.div>
@@ -46,7 +46,7 @@ export function DashboardPage() {
             </div>
             <div>
               <p className="text-2xl font-bold tabular-nums text-cursor-text">{stat.value}</p>
-              <p className="text-xs text-cursor-muted">{stat.label}</p>
+              <p className="text-sm text-cursor-muted">{stat.label}</p>
             </div>
           </Card>
         ))}
@@ -59,7 +59,7 @@ export function DashboardPage() {
           </div>
           <div>
             <h2 className="font-semibold text-cursor-text">Analyze a new profile</h2>
-            <p className="text-sm text-cursor-muted">Fetch insights from any public GitHub user</p>
+            <p className="text-base text-cursor-muted">Fetch insights from any public GitHub user</p>
           </div>
         </div>
         <Link to="/analyze">
@@ -72,8 +72,8 @@ export function DashboardPage() {
 
       <div>
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-cursor-text">Recent profiles</h2>
-          <Link to="/profiles" className="text-sm text-cursor-accent-hover hover:underline">
+          <h2 className="text-xl font-semibold text-cursor-text">Recent profiles</h2>
+          <Link to="/profiles" className="text-base text-cursor-accent-hover hover:underline">
             View all
           </Link>
         </div>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Sparkles } from 'lucide-react'
+import { AppLogo } from '@/components/AppLogo'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { register } from '@/api/auth'
@@ -24,7 +24,7 @@ export function RegisterPage() {
     try {
       const { user, tokens } = await register(form.email, form.password, form.username)
       setAuth(tokens, user)
-      navigate('/')
+      navigate('/dashboard')
     } catch (err) {
       setError(getErrorMessage(err))
     } finally {
@@ -34,7 +34,10 @@ export function RegisterPage() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center p-6">
-      <div className="absolute right-4 top-4">
+      <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
+        <Link to="/" className="text-sm text-cursor-muted hover:text-cursor-text">
+          ← Back to home
+        </Link>
         <ThemeToggle />
       </div>
       <motion.div
@@ -43,8 +46,8 @@ export function RegisterPage() {
         className="w-full max-w-md"
       >
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl accent-gradient glow-accent">
-            <Sparkles className="h-7 w-7 text-white" />
+          <div className="mx-auto mb-4 flex justify-center">
+            <AppLogo size="lg" />
           </div>
           <h1 className="text-2xl font-bold text-gradient">Create account</h1>
           <p className="mt-2 text-sm text-cursor-muted">Start screening GitHub developers</p>

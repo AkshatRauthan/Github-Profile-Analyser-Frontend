@@ -24,9 +24,9 @@ export function ProfileCard({ profile, index = 0 }: ProfileCardProps) {
             <h3 className="truncate font-semibold text-cursor-text">
               {profile.name || profile.githubUsername}
             </h3>
-            <p className="font-mono text-xs text-cursor-accent-hover">@{profile.githubUsername}</p>
+            <p className="font-mono text-sm text-cursor-accent-hover">@{profile.githubUsername}</p>
             {profile.location && (
-              <p className="mt-1 flex items-center gap-1 text-xs text-cursor-muted">
+              <p className="mt-1 flex items-center gap-1 text-sm text-cursor-muted">
                 <MapPin className="h-3 w-3" />
                 {profile.location}
               </p>
@@ -35,10 +35,10 @@ export function ProfileCard({ profile, index = 0 }: ProfileCardProps) {
         </div>
 
         {profile.bio && (
-          <p className="mt-3 line-clamp-2 text-sm text-cursor-muted">{profile.bio}</p>
+          <p className="mt-3 line-clamp-2 text-base text-cursor-muted">{profile.bio}</p>
         )}
 
-        <div className="mt-4 flex flex-wrap gap-3 text-xs text-cursor-muted">
+        <div className="mt-4 flex flex-wrap gap-3 text-sm text-cursor-muted">
           <span className="flex items-center gap-1">
             <Star className="h-3.5 w-3.5 text-amber-400" />
             {formatNumber(profile.totalStars)}
@@ -65,8 +65,8 @@ export function ProfileCard({ profile, index = 0 }: ProfileCardProps) {
 
         {profile.bestPersona && profile.bestPersonaScore != null && (
           <div className="mt-4 flex items-center justify-between rounded-lg border border-violet-500/20 bg-violet-500/5 px-3 py-2">
-            <span className="text-xs text-cursor-muted">Best match</span>
-            <span className="text-xs font-medium text-cursor-accent-hover">
+            <span className="text-sm text-cursor-muted">Best match</span>
+            <span className="text-sm font-medium text-cursor-accent-hover">
               {personaLabel(profile.bestPersona)} · {Math.round(profile.bestPersonaScore)}
             </span>
           </div>

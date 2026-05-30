@@ -17,7 +17,7 @@ export function RankingBreakdown({ breakdown }: RankingBreakdownProps) {
           transition={{ delay: i * 0.05 }}
           className="space-y-1.5"
         >
-          <div className="flex items-center justify-between text-sm">
+          <div className="flex items-center justify-between text-base">
             <span className="text-cursor-text">{metric.label}</span>
             <span className={cn('font-mono font-medium tabular-nums', scoreColor(metric.score))}>
               {Math.round(metric.score)}
@@ -31,7 +31,7 @@ export function RankingBreakdown({ breakdown }: RankingBreakdownProps) {
               className="h-full rounded-full accent-gradient"
             />
           </div>
-          <p className="text-[11px] text-cursor-muted leading-relaxed">{metric.summary}</p>
+          <p className="text-xs text-cursor-muted leading-relaxed">{metric.summary}</p>
         </motion.div>
       ))}
     </div>

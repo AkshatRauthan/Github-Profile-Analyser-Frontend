@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Sparkles, Code2 } from 'lucide-react'
+import { GitBranch } from 'lucide-react'
+import { AppLogo } from '@/components/AppLogo'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { login } from '@/api/auth'
@@ -31,7 +32,7 @@ export function LoginPage() {
     try {
       const { user, tokens } = await login(email, password)
       setAuth(tokens, user)
-      navigate('/')
+      navigate('/dashboard')
     } catch (err) {
       setError(getErrorMessage(err))
     } finally {
@@ -41,7 +42,10 @@ export function LoginPage() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center p-6">
-      <div className="absolute right-4 top-4">
+      <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
+        <Link to="/" className="text-sm text-cursor-muted hover:text-cursor-text">
+          ← Back to home
+        </Link>
         <ThemeToggle />
       </div>
       <motion.div
@@ -50,13 +54,9 @@ export function LoginPage() {
         className="w-full max-w-md"
       >
         <div className="mb-8 text-center">
-          <motion.div
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl accent-gradient glow-accent"
-          >
-            <Sparkles className="h-7 w-7 text-white" />
-          </motion.div>
+          <div className="mx-auto mb-4 flex justify-center">
+            <AppLogo size="lg" />
+          </div>
           <h1 className="text-2xl font-bold text-gradient">Welcome back</h1>
           <p className="mt-2 text-sm text-cursor-muted">
             Sign in to analyze and rank GitHub profiles
@@ -113,7 +113,7 @@ export function LoginPage() {
         </p>
 
         <div className="mt-8 flex items-center justify-center gap-2 text-xs text-cursor-muted">
-          <Code2 className="h-4 w-4" />
+          <GitBranch className="h-4 w-4" />
           Powered by GitHub API
         </div>
       </motion.div>

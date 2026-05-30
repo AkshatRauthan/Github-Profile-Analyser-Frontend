@@ -18,15 +18,17 @@ import { Badge } from '@/components/ui/Badge'
 import { ScoreRing } from '@/components/ui/ScoreRing'
 import { RankingBreakdown } from '@/components/RankingBreakdown'
 import { HeatmapChart } from '@/components/HeatmapChart'
+import { RepoCompositionChart } from '@/components/RepoCompositionChart'
 import {
   getProfile,
   rankProfile,
   getProfileRankings,
   getHeatmap,
+  getRepoComposition,
 } from '@/api/profiles'
 import { getErrorMessage } from '@/api/client'
 import { formatNumber, personaLabel } from '@/lib/utils'
-import type { GitHubProfile, PersonaRanking, ContributionHeatmap, HeatmapPeriod } from '@/types'
+import type { GitHubProfile, PersonaRanking, ContributionHeatmap, HeatmapPeriod, RepoComposition } from '@/types'
 
 export function ProfileDetailPage() {
   const { username } = useParams<{ username: string }>()
@@ -34,6 +36,7 @@ export function ProfileDetailPage() {
   const [rankings, setRankings] = useState<PersonaRanking[]>([])
   const [bestMatch, setBestMatch] = useState<PersonaRanking | null>(null)
   const [heatmap, setHeatmap] = useState<ContributionHeatmap | null>(null)
+  const [composition, setComposition] = useState<RepoComposition | null>(null)
   const [heatmapPeriod, setHeatmapPeriod] = useState<HeatmapPeriod>('currYear')
   const [selectedPersona, setSelectedPersona] = useState<PersonaRanking | null>(null)
   const [loading, setLoading] = useState(true)
@@ -69,6 +72,13 @@ export function ProfileDetailPage() {
       .then(setHeatmap)
       .catch(() => setHeatmap(null))
   }, [username, heatmapPeriod])
+
+  useEffect(() => {
+    if (!username) return
+    getRepoComposition(username)
+      .then(setComposition)
+      .catch(() => setComposition(null))
+  }, [username, profile?.lastAnalyzedAt])
 
   async function handleRank() {
     if (!username) return
@@ -180,7 +190,67 @@ export function ProfileDetailPage() {
         </div>
       )}
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <Card className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <BarChart3 className="h-5 w-5 text-emerald-400" />
+            <h2 className="font-semibold text-cursor-text">Contributions</h2>
+          </div>
+          <div className="flex gap-1 rounded-lg border border-cursor-border p-0.5">
+            {(['currWeek', 'currMonth', 'currYear'] as HeatmapPeriod[]).map((p) => (
+              <button
+                key={p}
+                type="button"
+                onClick={() => setHeatmapPeriod(p)}
+                className={`rounded-md px-2 py-1 text-xs font-medium transition-colors ${
+                  heatmapPeriod === p
+                    ? 'bg-cursor-hover text-cursor-text'
+                    : 'text-cursor-muted hover:text-cursor-text'
+                }`}
+              >
+                {p === 'currWeek' ? 'Week' : p === 'currMonth' ? 'Month' : 'Year'}
+              </button>
+            ))}
+          </div>
+        </div>
+        {heatmap ? (
+          <>
+            <p className="text-sm text-cursor-muted">
+              <span className="font-semibold text-cursor-text">
+                {heatmap.totalContributions}
+              </span>{' '}
+              contributions in this period
+              {heatmap.includesPrivateContributions && (
+                <span className="ml-2 text-xs text-emerald-400">
+                  (includes {heatmap.privateContributions ?? 0} private)
+                </span>
+              )}
+            </p>
+            <HeatmapChart data={heatmap} />
+          </>
+        ) : (
+          <p className="py-8 text-center text-sm text-cursor-muted">Loading heatmap...</p>
+        )}
+      </Card>
+
+      <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
+        <Card className="space-y-4">
+          <div className="flex items-center gap-2">
+            <BarChart3 className="h-5 w-5 text-violet-400" />
+            <h2 className="font-semibold text-cursor-text">Repository breakdown</h2>
+            {composition?.includesPrivateRepos && (
+              <Badge variant="accent" className="text-xs">
+                {composition.privateRepoCount} private
+              </Badge>
+            )}
+          </div>
+          {composition ? (
+            <RepoCompositionChart data={composition} />
+          ) : (
+            <p className="py-8 text-center text-sm text-cursor-muted">Loading repository stats...</p>
+          )}
+        </Card>
+
         <Card className="space-y-6">
           <div className="flex items-center gap-2">
             <Trophy className="h-5 w-5 text-cursor-accent-hover" />
@@ -210,7 +280,7 @@ export function ProfileDetailPage() {
                     key={r.persona}
                     type="button"
                     onClick={() => setSelectedPersona(r)}
-                    className={`rounded-lg border px-3 py-1.5 text-xs transition-colors ${
+                    className={`rounded-lg border px-3 py-2 text-sm transition-colors ${
                       selectedPersona?.persona === r.persona
                         ? 'border-violet-500/50 bg-violet-500/15 text-cursor-accent-hover'
                         : 'border-cursor-border text-cursor-muted hover:bg-cursor-hover'
@@ -224,44 +294,6 @@ export function ProfileDetailPage() {
                 <RankingBreakdown breakdown={selectedPersona.breakdown} />
               )}
             </>
-          )}
-        </Card>
-
-        <Card className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5 text-emerald-400" />
-              <h2 className="font-semibold text-cursor-text">Contributions</h2>
-            </div>
-            <div className="flex gap-1 rounded-lg border border-cursor-border p-0.5">
-              {(['currWeek', 'currMonth', 'currYear'] as HeatmapPeriod[]).map((p) => (
-                <button
-                  key={p}
-                  type="button"
-                  onClick={() => setHeatmapPeriod(p)}
-                  className={`rounded-md px-2 py-1 text-[10px] font-medium transition-colors ${
-                    heatmapPeriod === p
-                      ? 'bg-cursor-hover text-cursor-text'
-                      : 'text-cursor-muted hover:text-cursor-text'
-                  }`}
-                >
-                  {p === 'currWeek' ? 'Week' : p === 'currMonth' ? 'Month' : 'Year'}
-                </button>
-              ))}
-            </div>
-          </div>
-          {heatmap ? (
-            <>
-              <p className="text-sm text-cursor-muted">
-                <span className="font-semibold text-cursor-text">
-                  {heatmap.totalContributions}
-                </span>{' '}
-                contributions in this period
-              </p>
-              <HeatmapChart data={heatmap} />
-            </>
-          ) : (
-            <p className="text-sm text-cursor-muted py-8 text-center">Loading heatmap...</p>
           )}
         </Card>
       </div>

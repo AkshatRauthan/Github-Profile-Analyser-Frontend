@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AppLayout } from '@/components/layout/AppLayout'
 import { ProtectedRoute } from '@/components/ProtectedRoute'
+import { HomePage } from '@/pages/HomePage'
 import { LoginPage } from '@/pages/LoginPage'
 import { RegisterPage } from '@/pages/RegisterPage'
 import { DashboardPage } from '@/pages/DashboardPage'
@@ -20,13 +21,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<HomePage />} />
         <Route
           path="/login"
-          element={authenticated ? <Navigate to="/" replace /> : <LoginPage />}
+          element={authenticated ? <Navigate to="/dashboard" replace /> : <LoginPage />}
         />
         <Route
           path="/register"
-          element={authenticated ? <Navigate to="/" replace /> : <RegisterPage />}
+          element={authenticated ? <Navigate to="/dashboard" replace /> : <RegisterPage />}
         />
         <Route path="/auth/callback" element={<AuthCallbackPage />} />
         <Route
@@ -36,7 +38,7 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="/" element={<DashboardPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/analyze" element={<AnalyzePage />} />
           <Route path="/profiles" element={<ProfilesPage />} />
           <Route path="/profiles/:username" element={<ProfileDetailPage />} />

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Sparkles, Loader2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
+import { AppLogo } from '@/components/AppLogo'
 import { getAuthProfile } from '@/api/auth'
 import { useAuthStore } from '@/store/authStore'
 
@@ -34,7 +35,7 @@ export function AuthCallbackPage() {
         })
         const user = await getAuthProfile()
         setAuth({ accessToken: accessToken!, refreshToken: refreshToken! }, user)
-        navigate('/', { replace: true })
+        navigate('/dashboard', { replace: true })
       } catch {
         setError('Failed to complete sign in. Please try again.')
         useAuthStore.getState().logout()
@@ -51,8 +52,8 @@ export function AuthCallbackPage() {
         animate={{ opacity: 1, scale: 1 }}
         className="w-full max-w-md text-center"
       >
-        <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl accent-gradient glow-accent">
-          <Sparkles className="h-7 w-7 text-white" />
+        <div className="mx-auto mb-6 flex justify-center">
+          <AppLogo size="lg" />
         </div>
 
         {error ? (

@@ -13,6 +13,7 @@ import type {
   SearchResult,
   PersonaKey,
   Pagination,
+  RepoComposition,
 } from '@/types'
 
 export async function analyzeProfile(username: string) {
@@ -48,6 +49,13 @@ export async function getHeatmap(username: string, period: HeatmapPeriod) {
   const { data } = await api.get<ApiResponse<ContributionHeatmap>>(
     `/profiles/${username}/heatmap`,
     { params: { period } }
+  )
+  return data.data
+}
+
+export async function getRepoComposition(username: string) {
+  const { data } = await api.get<ApiResponse<RepoComposition>>(
+    `/profiles/${username}/composition`
   )
   return data.data
 }

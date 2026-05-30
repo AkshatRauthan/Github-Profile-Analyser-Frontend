@@ -10,7 +10,7 @@ export function AppLayout() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
-        className="ml-60 min-h-screen p-8"
+        className="app-reports ml-60 min-h-screen p-8"
       >
         <Outlet />
       </motion.main>

@@ -117,3 +117,54 @@
     @apply bg-gradient-to-r from-cursor-accent to-violet-400;
   }
 }
+
+@layer components {
+  /* Slightly larger type across dashboard & report pages */
+  .app-reports {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .app-reports .text-xs {
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+  }
+
+  .app-reports .text-sm {
+    font-size: 0.9375rem;
+    line-height: 1.375rem;
+  }
+
+  .app-reports .text-base {
+    font-size: 1.0625rem;
+    line-height: 1.625rem;
+  }
+
+  .app-reports .text-lg {
+    font-size: 1.1875rem;
+    line-height: 1.75rem;
+  }
+
+  .app-reports .text-xl {
+    font-size: 1.3125rem;
+    line-height: 1.875rem;
+  }
+
+  .app-reports .text-2xl {
+    font-size: 1.625rem;
+    line-height: 2rem;
+  }
+
+  .app-reports .text-3xl {
+    font-size: 2rem;
+    line-height: 2.25rem;
+  }
+
+  .app-reports h2.font-semibold:not([class*='text-']) {
+    font-size: 1.1875rem;
+  }
+
+  .app-reports p.text-cursor-muted:not([class*='text-']) {
+    font-size: 0.9375rem;
+  }
+}

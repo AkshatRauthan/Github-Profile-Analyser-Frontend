@@ -8,15 +8,15 @@ import {
   Trophy,
   Activity,
   LogOut,
-  Sparkles,
   GitCompare,
 } from 'lucide-react'
+import { AppLogo } from '@/components/AppLogo'
 import { cn } from '@/lib/utils'
 import { useAuthStore } from '@/store/authStore'
 import { ThemeToggle } from '@/components/ThemeToggle'
 
 const navItems = [
-  { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
+  { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { to: '/analyze', icon: UserPlus, label: 'Analyze' },
   { to: '/profiles', icon: Users, label: 'Profiles' },
   { to: '/search', icon: Search, label: 'Search' },
@@ -31,9 +31,7 @@ export function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 z-40 flex h-screen w-60 flex-col border-r border-cursor-border bg-cursor-surface/95 backdrop-blur-xl">
       <div className="flex items-center gap-2.5 border-b border-cursor-border px-5 py-5">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg accent-gradient glow-accent">
-          <Sparkles className="h-5 w-5 text-white" />
-        </div>
+        <AppLogo size="sm" />
         <div>
           <p className="text-sm font-semibold text-cursor-text">Profile Analyser</p>
           <p className="text-[10px] text-cursor-muted font-mono">by GitHub API</p>
@@ -45,7 +43,7 @@ export function Sidebar() {
           <NavLink
             key={item.to}
             to={item.to}
-            end={item.to === '/'}
+            end={item.to === '/dashboard'}
             className={({ isActive }) =>
               cn(
                 'group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',

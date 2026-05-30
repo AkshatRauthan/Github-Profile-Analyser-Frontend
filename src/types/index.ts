@@ -77,6 +77,25 @@ export interface ContributionHeatmap {
   to: string
   totalContributions: number
   days: { date: string; count: number }[]
+  includesPrivateContributions?: boolean
+  privateContributions?: number
+}
+
+export interface CompositionSlice {
+  label: string
+  count: number
+  percentage: number
+}
+
+export interface RepoComposition {
+  githubUsername: string
+  totalRepos: number
+  languages: CompositionSlice[]
+  technologies: CompositionSlice[]
+  frameworks: CompositionSlice[]
+  repoTypes: CompositionSlice[]
+  includesPrivateRepos?: boolean
+  privateRepoCount?: number
 }
 
 export type PersonaKey =
